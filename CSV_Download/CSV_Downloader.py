@@ -1,13 +1,20 @@
 import datetime
-import urllib
+import urllib.request, urllib
+import gzip
+import shutil
+from urllib.error import HTTPError
 
 
 def download(url):
     """
     Download and return data from the given URL.
     """
-    data = urllib.request.urlopen(url).read()
-    return data
+    try:
+        response= urllib.request.urlopen(url)
+        datas = response.read()
+        return datas
+    except HTTPError as e:
+        print(f'HTTP Error from {url} : {e}')
 
 
 def save(data, filename):
@@ -29,11 +36,23 @@ def get_dates_2022():
     return dates_2022
 
 
+def extract(gz_file, extracted_file):
+    with gzip.open(gz_file, 'rb') as f_in:
+        with open(extracted_file, 'wb') as f_out:
+            shutil.copyfileobj(f_in, f_out)
+
+
 filepath = "csv"
 dates_2022 = get_dates_2022()
 for date in dates_2022:
     url = f"https://archive.sensor.community/2022/{date}/{date}_sds011_sensor_3659.csv.gz"
     filepath = f"gz/{date}.csv.gz"
+    newFilepath = f"csv/{date}.csv"
     print(f"Downloading from", url)
     data = download(url)
-    save(data, filepath)
+    if data:
+        save(data, filepath)
+        extract(filepath, newFilepath)
+        print(f"Extracting", newFilepath)
+    else:
+        print(f"No data")
