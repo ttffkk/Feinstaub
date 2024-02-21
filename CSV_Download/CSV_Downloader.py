@@ -1,6 +1,8 @@
 import urllib.request
 import datetime
 
+
+
 def download(url):
     """
     Download and return data from the given URL.
