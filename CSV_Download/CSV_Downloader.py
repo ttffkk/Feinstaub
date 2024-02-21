@@ -23,3 +23,4 @@ def get_dates_2022():
         dates_2022.append(current_date.strftime("%Y-%m-%d"))
         current_date += datetime.timedelta(days=1)
     return dates_2022
+
