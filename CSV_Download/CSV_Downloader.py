@@ -1,7 +1,9 @@
 import datetime
-import urllib.request, urllib
 import gzip
+import os
 import shutil
+import urllib
+import urllib.request
 from urllib.error import HTTPError
 
 
@@ -10,7 +12,7 @@ def download(url):
     Download and return data from the given URL.
     """
     try:
-        response= urllib.request.urlopen(url)
+        response = urllib.request.urlopen(url)
         datas = response.read()
         return datas
     except HTTPError as e:
@@ -42,6 +44,16 @@ def extract(gz_file, extracted_file):
             shutil.copyfileobj(f_in, f_out)
 
 
+def create_directory(directory):
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+        print(f'Folder {directory} added')
+    else:
+        print(f'Folder {directory} already exists')
+
+
+create_directory("csv")
+create_directory("gz")
 filepath = "csv"
 dates_2022 = get_dates_2022()
 for date in dates_2022:
@@ -56,3 +68,6 @@ for date in dates_2022:
         print(f"Extracting", newFilepath)
     else:
         print(f"No data")
+
+if os.path.exists("gz"):
+    shutil.rmtree("gz")
