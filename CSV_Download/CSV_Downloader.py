@@ -37,7 +37,6 @@ def get_dates_2022():
         current_date += datetime.timedelta(days=1)
     return dates_2022
 
-
 def extract(gz_file, extracted_file):
     with gzip.open(gz_file, 'rb') as f_in:
         with open(extracted_file, 'wb') as f_out:
