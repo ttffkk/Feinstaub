@@ -1,28 +1,37 @@
+import csv
 import mysql.connector
 
 config = {
     'user': 'root',
-    'password': 'Arian2001',
-    'host': '127.0.0.1:3306',
-    'database': 'Feinstaub',
-    'raise_on_warnings': True #Alles erledigt. Habibi
+    'password': 'DkEab99729777',
+    'host': '127.0.0.1',  # Remove the port number from the host
+    'database': 'feinstaub',
+    'raise_on_warnings': True
 }
+
+# Establish a connection to the database
 cnx = mysql.connector.connect(**config)
 
 
-# Funktion, um Daten in die Tabelle einzufügen
-def insertDataIntoTable():
+# Function to insert data into the table
+def insertDataIntoTable(data):
     cursor = cnx.cursor()
-    cursor.execute("insert into SDS011 (PM10, PM25, zeitstempel) values (?, ?, ?)")
-    cursor.execute("insert into DHT22 (luftfeuchtigkeit, zeitstempel, temperatur) values (?, ?, ?)")
-    # csv Daten mit müssen noch gesettet werden
-    cnx.close()
+    cursor.execute("INSERT INTO SDS011 (PM10, PM25, zeitstempel) VALUES (%s, %s, %s)", data)
+    cnx.commit()  # Commit the transaction
+    cursor.close()
 
-# Funktion, um Daten aus der Tabelle heraus zu bekommen
-def getDataFromTable():
-    cursor = cnx.cursor()
-    cursor.execute("select * from SDS011 where zeitstempel like 2022-03-14")
-    ergebnisse = cursor.fetchall()
-    for row in ergebnisse:
+
+# Open the CSV file and read the data
+with open('../CSV_Download/csv/2022-01-01.csv', 'r') as csvfile:
+    csv_reader = csv.reader(csvfile, delimiter=';')
+    next(csv_reader)  # Skip the header row if it exists
+    for row in csv_reader:
         print(row)
-    cnx.close()
+
+        # Assuming the CSV columns are in the order PM10, PM25, and zeitstempel
+        sensor_id, sensor_type, location, lat, lon, timestamp, P1, durP1, ratioP1, P2, durP2, ratioP2 = row
+        data = (P1, P2, timestamp)
+        insertDataIntoTable(data)
+
+# Close the database connection
+cnx.close()
