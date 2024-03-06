@@ -3,7 +3,7 @@ import mysql.connector
 config = {
     'user': 'root',
     'password': 'Arian2001',
-    'host': '127.0.0.1',
+    'host': '127.0.0.1:3306',
     'database': 'employees',
     'raise_on_warnings': True #hier müssen die daten noch angepasst werden
 }
