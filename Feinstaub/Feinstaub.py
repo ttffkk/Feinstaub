@@ -13,15 +13,15 @@ cnx = mysql.connector.connect(**config)
 # Funktion, um Daten in die Tabelle einzufügen
 def insertDataIntoTable():
     cursor = cnx.cursor()
-    cursor.execute("insert into SDS011 (PM10, PM25, zeitstempel) values (?, ?, ?)")
-    cursor.execute("insert into DHT22 (luftfeuchtigkeit, zeitstempel, temperatur) values (?, ?, ?)")
+    cursor.execute("insert into feinstaub.sds011 (PM10, PM25, zeitstempel) values (?, ?, ?)")
+    cursor.execute("insert into feinstaub.dht22 (luftfeuchtigkeit, zeitstempel, temperatur) values (?, ?, ?)")
     # csv Daten mit müssen noch gesettet werden
     cnx.close()
 
 # Funktion, um Daten aus der Tabelle heraus zu bekommen
 def getDataFromTable():
     cursor = cnx.cursor()
-    cursor.execute("select * from SDS011 where zeitstempel like 2022-03-14")
+    cursor.execute("select * from feinstaub.sds011 where zeitstempel like 2022-03-14")
     ergebnisse = cursor.fetchall()
     for row in ergebnisse:
         print(row)
