@@ -4,7 +4,7 @@ config = {
     'user': 'root',
     'password': 'Arian2001',
     'host': '127.0.0.1:3306',
-    'database': 'employees',
+    'database': 'Feinstaub',
     'raise_on_warnings': True #Alles erledigt.
 }
 cnx = mysql.connector.connect(**config)
