@@ -1,13 +1,14 @@
 import mysql.connector
 
 config = {
-    'user': 'scott',
-    'password': 'password',
+    'user': 'root',
+    'password': 'Arian2001',
     'host': '127.0.0.1',
     'database': 'employees',
     'raise_on_warnings': True #hier müssen die daten noch angepasst werden
 }
 cnx = mysql.connector.connect(**config)
+
 
 # Funktion, um Daten in die Tabelle einzufügen
 def insertDataIntoTable():
