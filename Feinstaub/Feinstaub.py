@@ -45,3 +45,11 @@ def fileToTable(file):
 
     # Close the database connection
     cnx.close()
+
+        # Assuming the CSV columns are in the order PM10, PM25, and zeitstempel
+        sensor_id, sensor_type, location, lat, lon, timestamp, P1, durP1, ratioP1, P2, durP2, ratioP2 = row
+        data = (P1, P2, timestamp)
+        insertDataIntoTable(data)
+
+# Close the database connection
+cnx.close()
