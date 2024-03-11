@@ -37,6 +37,7 @@ def get_dates_2022():
         current_date += datetime.timedelta(days=1)
     return dates_2022
 
+
 def extract(gz_file, extracted_file):
     with gzip.open(gz_file, 'rb') as f_in:
         with open(extracted_file, 'wb') as f_out:
@@ -51,22 +52,22 @@ def create_directory(directory):
         print(f'Folder {directory} already exists')
 
 
-create_directory("csv")
-create_directory("gz")
-filepath = "csv"
-dates_2022 = get_dates_2022()
-for date in dates_2022:
-    url = f"https://archive.sensor.community/2022/{date}/{date}_sds011_sensor_3659.csv.gz"
-    filepath = f"gz/{date}.csv.gz"
-    newFilepath = f"csv/{date}.csv"
-    print(f"Downloading from", url)
-    data = download(url)
-    if data:
-        save(data, filepath)
-        extract(filepath, newFilepath)
-        print(f"Extracting", newFilepath)
-    else:
-        print(f"No data")
+def download_files():
+    create_directory("csv")
+    create_directory("gz")
+    dates_2022 = get_dates_2022()
+    for date in dates_2022:
+        url = f"https://archive.sensor.community/2022/{date}/{date}_sds011_sensor_3659.csv.gz"
+        filepath = f"gz/{date}.csv.gz"
+        new_filepath = f"csv/{date}.csv"
+        print(f"Downloading from", url)
+        data = download(url)
+        if data:
+            save(data, filepath)
+            extract(filepath, new_filepath)
+            print(f"Extracting", new_filepath)
+        else:
+            print(f"No data")
 
-if os.path.exists("gz"):
-    shutil.rmtree("gz")
+    if os.path.exists("gz"):
+        shutil.rmtree("gz")
