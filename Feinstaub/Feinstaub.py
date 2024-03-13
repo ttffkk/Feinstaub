@@ -17,8 +17,7 @@ cnx = mysql.connector.connect(**config)
 def insertDataIntoTable(data):
     cursor = cnx.cursor()
     cursor.execute("INSERT INTO SDS011 (PM10, PM25, zeitstempel) VALUES (%s, %s, %s)", data)
-    cnx.commit()
-    cursor.close()
+
 
 
 def fileCatcher():
@@ -45,4 +44,5 @@ def fileToTable(file):
 
 
 fileCatcher()
+cnx.commit()
 cnx.close()
