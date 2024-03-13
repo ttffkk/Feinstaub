@@ -11,4 +11,3 @@ PM10 float,
 PM25 float, 
 zeitstempel datetime
 );
-select * from SDS011 where zeitstempel like 2022-03-14;
