@@ -3,8 +3,8 @@ import os
 import mysql.connector
 
 config = {
-    'user': 'root',
-    'password': 'DkEab99729777',
+    'user': 'Azad',
+    'password': 'Azad2005',
     'host': '127.0.0.1',  # Remove the port number from the host
     'database': 'feinstaub',
     'raise_on_warnings': True
