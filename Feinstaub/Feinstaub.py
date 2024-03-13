@@ -13,6 +13,7 @@ config = {
 # Establish a connection to the database
 cnx = mysql.connector.connect(**config)
 
+
 # Function to insert data into the table
 def insertDataIntoTable(data):
     cursor = cnx.cursor()
@@ -43,6 +44,14 @@ def fileToTable(file):
 
     # Close the database connection
 
+        # Assuming the CSV columns are in the order PM10, PM25, and zeitstempel
+        sensor_id, sensor_type, location, lat, lon, timestamp, P1, durP1, ratioP1, P2, durP2, ratioP2 = row
+        data = (P1, P2, timestamp)
+        insertDataIntoTable(data)
+
+    # Close the database connection
+
 
 fileCatcher()
 cnx.close()
+# Close the database connection
