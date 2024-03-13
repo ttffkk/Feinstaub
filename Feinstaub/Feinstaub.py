@@ -17,8 +17,7 @@ cnx = mysql.connector.connect(**config)
 def insertDataIntoTable(data):
     cursor = cnx.cursor()
     cursor.execute("INSERT INTO SDS011 (PM10, PM25, zeitstempel) VALUES (%s, %s, %s)", data)
-    cnx.commit()
-    cursor.close()
+
 
 
 def fileCatcher():
@@ -43,10 +42,7 @@ def fileToTable(file):
 
     # Close the database connection
 
-        # Assuming the CSV columns are in the order PM10, PM25, and zeitstempel
-        sensor_id, sensor_type, location, lat, lon, timestamp, P1, durP1, ratioP1, P2, durP2, ratioP2 = row
-        data = (P1, P2, timestamp)
-        insertDataIntoTable(data)
 
-# Close the database connection
+fileCatcher()
+cnx.commit()
 cnx.close()
