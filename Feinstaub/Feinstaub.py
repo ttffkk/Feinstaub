@@ -1,4 +1,5 @@
 import csv
+import os
 import mysql.connector
 
 config = {
@@ -21,17 +22,26 @@ def insertDataIntoTable(data):
     cursor.close()
 
 
+def fileCatcher():
+    csv_folder = '../CSV_Download/csv'
+    for filename in os.listdir(csv_folder):
+        if filename.endswith('.csv'):
+            full_path = os.path.join(csv_folder, filename)
+            fileToTable(full_path)
+
+
 # Open the CSV file and read the data
-with open('../CSV_Download/csv/2022-01-01.csv', 'r') as csvfile:
-    csv_reader = csv.reader(csvfile, delimiter=';')
-    next(csv_reader)  # Skip the header row if it exists
-    for row in csv_reader:
-        print(row)
+def fileToTable(file):
+    with open(file, 'r') as csvfile:
+        csv_reader = csv.reader(csvfile, delimiter=';')
+        next(csv_reader)  # Skip the header row if it exists
+        for row in csv_reader:
+            print(row)
 
-        # Assuming the CSV columns are in the order PM10, PM25, and zeitstempel
-        sensor_id, sensor_type, location, lat, lon, timestamp, P1, durP1, ratioP1, P2, durP2, ratioP2 = row
-        data = (P1, P2, timestamp)
-        insertDataIntoTable(data)
+            # Assuming the CSV columns are in the order PM10, PM25, and zeitstempel
+            sensor_id, sensor_type, location, lat, lon, timestamp, P1, durP1, ratioP1, P2, durP2, ratioP2 = row
+            data = (P1, P2, timestamp)
+            insertDataIntoTable(data)
 
-# Close the database connection
-cnx.close()
+    # Close the database connection
+    cnx.close()
