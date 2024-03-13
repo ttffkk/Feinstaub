@@ -7,6 +7,11 @@ import urllib.request
 from urllib.error import HTTPError
 
 
+class CsvDownloader:
+    def __init__(self):
+        download_files()
+
+
 def download(url):
     """
     Download and return data from the given URL.
