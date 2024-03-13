@@ -13,6 +13,7 @@ config = {
 # Establish a connection to the database
 cnx = mysql.connector.connect(**config)
 
+
 # Function to insert data into the table
 def insertDataIntoTable(data):
     cursor = cnx.cursor()
@@ -48,5 +49,9 @@ def fileToTable(file):
         data = (P1, P2, timestamp)
         insertDataIntoTable(data)
 
-# Close the database connection
+    # Close the database connection
+
+
+fileCatcher()
 cnx.close()
+# Close the database connection
