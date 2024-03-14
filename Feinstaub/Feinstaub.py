@@ -22,6 +22,7 @@ def insertDataIntoTable():
 def getDataFromTable():
     cursor = cnx.cursor()
     cursor.execute("select * from feinstaub.sds011 where zeitstempel like 2022-03-14")
+    cursor.execute("select * from feinstaub.dht22 where zeitstempel like 2022-03-14")
     ergebnisse = cursor.fetchall()
     for row in ergebnisse:
         print(row)
