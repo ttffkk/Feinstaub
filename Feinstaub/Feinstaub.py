@@ -27,3 +27,5 @@ def getDataFromTable():
     for row in ergebnisse:
         print(row)
     cnx.close()
+
+    #Funktionen wurden erneuert
