@@ -9,7 +9,7 @@ from urllib.error import HTTPError
 
 class CsvDownloader:
     def __init__(self):
-        download_files()
+        print("CsvDownloader")
 
 
 def download(url):
@@ -57,22 +57,24 @@ def create_directory(directory):
         print(f'Folder {directory} already exists')
 
 
-def download_files():
-    create_directory("csv")
-    create_directory("gz")
+def download_files(type, sensor_id):
+    csv_path = f"csv{type}"
+    create_directory(csv_path)
+    gz_path = f"gz{type}"
+    create_directory(gz_path)
     dates_2022 = get_dates_2022()
     for date in dates_2022:
-        url = f"https://archive.sensor.community/2022/{date}/{date}_sds011_sensor_3659.csv.gz"
-        filepath = f"gz/{date}.csv.gz"
-        new_filepath = f"csv/{date}.csv"
-        print(f"Downloading from", url)
+        url = f"https://archive.sensor.community/2022/{date}/{date}_{type}_sensor_{sensor_id}.csv.gz"
+        filepath = f"{gz_path}/{date}.csv.gz"
+        new_filepath = f"{csv_path}/{date}.csv"
         data = download(url)
         if data:
             save(data, filepath)
             extract(filepath, new_filepath)
-            print(f"Extracting", new_filepath)
         else:
             print(f"No data")
 
-    if os.path.exists("gz"):
-        shutil.rmtree("gz")
+    if os.path.exists(gz_path):
+        shutil.rmtree(gz_path)
+    print(f"Downloaded {type}")
+    return csv_path
