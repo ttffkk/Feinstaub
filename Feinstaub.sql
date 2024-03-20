@@ -8,7 +8,9 @@ temperatur float
 create table SDS011(
 SDS011_id int primary key auto_increment,
 PM10 float,
-PM25 float, 
+PM25 float,
 zeitstempel datetime
 );
 select * from SDS011 where zeitstempel like 2022-03-14;
+
+
