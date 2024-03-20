@@ -160,3 +160,6 @@ cython_debug/
 #.idea/
 /CSV_Download/csv/
 /CSV_Download/gz/
+/Feinstaub/csvsds011/
+/Feinstaub/gzsds011/
+/Feinstaub/csvdht22/

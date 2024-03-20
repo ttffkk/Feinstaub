@@ -7,6 +7,11 @@ import urllib.request
 from urllib.error import HTTPError
 
 
+class CsvDownloader:
+    def __init__(self):
+        print("CsvDownloader")
+
+
 def download(url):
     """
     Download and return data from the given URL.
@@ -37,6 +42,7 @@ def get_dates_2022():
         current_date += datetime.timedelta(days=1)
     return dates_2022
 
+
 def extract(gz_file, extracted_file):
     with gzip.open(gz_file, 'rb') as f_in:
         with open(extracted_file, 'wb') as f_out:
@@ -51,43 +57,24 @@ def create_directory(directory):
         print(f'Folder {directory} already exists')
 
 
-create_directory("csvSds011")
-create_directory("gz")
-filepath = "csvSds011"
-dates_2022 = get_dates_2022()
-for date in dates_2022:
-    url = f"https://archive.sensor.community/2022/{date}/{date}_sds011_sensor_3659.csv.gz"
-    filepath = f"gz/{date}.csv.gz"
-    newFilepath = f"csvSds011/{date}.csv"
-    print(f"Downloading from", url)
-    data = download(url)
-    if data:
-        save(data, filepath)
-        extract(filepath, newFilepath)
-        print(f"Extracting", newFilepath)
-    else:
-        print(f"No data")
+def download_files(type, sensor_id):
+    csv_path = f"csv{type}"
+    create_directory(csv_path)
+    gz_path = f"gz{type}"
+    create_directory(gz_path)
+    dates_2022 = get_dates_2022()
+    for date in dates_2022:
+        url = f"https://archive.sensor.community/2022/{date}/{date}_{type}_sensor_{sensor_id}.csv.gz"
+        filepath = f"{gz_path}/{date}.csv.gz"
+        new_filepath = f"{csv_path}/{date}.csv"
+        data = download(url)
+        if data:
+            save(data, filepath)
+            extract(filepath, new_filepath)
+        else:
+            print(f"No data")
 
-if os.path.exists("gz"):
-    shutil.rmtree("gz")
-
-
-create_directory("csvDht22")
-create_directory("gz")
-filepath = "csvDht22"
-dates_2022 = get_dates_2022()
-for date in dates_2022:
-    url = f"https://archive.sensor.community/2022/{date}/{date}_dht22_sensor_3660.csv.gz"
-    filepath = f"gz/{date}.csv.gz"
-    newFilepath = f"csvDht22/{date}.csv"
-    print(f"Downloading from", url)
-    data2 = download(url)
-    if data2:
-        save(data2, filepath)
-        extract(filepath, newFilepath)
-        print(f"Extracting", newFilepath)
-    else:
-        print(f"No data")
-
-if os.path.exists("gz"):
-    shutil.rmtree("gz")
+    if os.path.exists(gz_path):
+        shutil.rmtree(gz_path)
+    print(f"Downloaded {type}")
+    return csv_path
