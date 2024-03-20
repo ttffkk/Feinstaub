@@ -5,7 +5,7 @@ from CSV_Download import CSV_Downloader
 
 config = {
     'user': 'root',
-    'password': 'RootPassword',
+    'password': 'DkEab99729777',
     'host': '127.0.0.1',  # Remove the port number from the host
     'database': 'feinstaub',
     'raise_on_warnings': True
