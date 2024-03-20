@@ -47,22 +47,21 @@ def fileToTable(file, type_of_table):
 def fileCatcher():
     type_of_table = "sds011"
     sensor_id_outside = 3659
-    csv_folder_sds=f"../CSV_Download/{CSV_Downloader.download_files(type_of_table, sensor_id_outside)}"
+    csv_folder_sds = f"{CSV_Downloader.download_files(type_of_table, sensor_id_outside)}"
     type_of_table = "dht22"
     sensor_id_outside = 3660
-    csv_folder_dht=f"../CSV_Download/{CSV_Downloader.download_files(type_of_table, sensor_id_outside)}"
+    csv_folder_dht = f"{CSV_Downloader.download_files(type_of_table, sensor_id_outside)}"
 
     for filename in os.listdir(csv_folder_sds):
         if filename.endswith('.csv'):
             full_path = os.path.join(csv_folder_sds, filename)
-            fileToTable(full_path,"SDS011")
+            fileToTable(full_path, "SDS011")
     for filename in os.listdir(csv_folder_dht):
         if filename.endswith('.csv'):
             full_path = os.path.join(csv_folder_dht, filename)
-            fileToTable(full_path,"DHT22")
+            fileToTable(full_path, "DHT22")
 
 
-
-
+fileCatcher()
 cnx.commit()  # Commit the transaction
 cnx.close()

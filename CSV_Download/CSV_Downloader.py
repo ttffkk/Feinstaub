@@ -67,16 +67,14 @@ def download_files(type, sensor_id):
         url = f"https://archive.sensor.community/2022/{date}/{date}_{type}_sensor_{sensor_id}.csv.gz"
         filepath = f"{gz_path}/{date}.csv.gz"
         new_filepath = f"{csv_path}/{date}.csv"
-        print(f"Downloading from", url)
         data = download(url)
         if data:
             save(data, filepath)
             extract(filepath, new_filepath)
-            print(f"Extracting", new_filepath)
         else:
             print(f"No data")
 
-    if os.path.exists("gz"):
-        shutil.rmtree("gz")
-
+    if os.path.exists(gz_path):
+        shutil.rmtree(gz_path)
+    print(f"Downloaded {type}")
     return csv_path
