@@ -34,11 +34,13 @@ def file_to_table(file, type_of_table):
         for row in csv_reader:
 
             # Assuming the CSV columns are in the order PM10, PM25, and zeitstempel
-            sensor_id, sensor_type, location, lat, lon, timestamp, p1, dur_p1, ratio_p1, p2, dur_p2, ratio_p2 = row
-            data = (p1, p2, timestamp)
             if type_of_table == "DHT22":
+                sensor_id, sensor_type, location, lat, lon, timestamp, temperature, humidity = row
+                data = (humidity, timestamp, temperature)
                 insert_data_into_table_dht22(data)
             elif type_of_table == "SDS011":
+                sensor_id, sensor_type, location, lat, lon, timestamp, p1, dur_p1, ratio_p1, p2, dur_p2, ratio_p2 = row
+                data = (p1, p2, timestamp)
                 insert_data_into_table_sds011(data)
             else:
                 print("Unknown")
