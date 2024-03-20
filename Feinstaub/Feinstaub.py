@@ -17,34 +17,34 @@ cursor = cnx.cursor()
 
 
 # Function to insert data into the table
-def insertDataIntoTableSds011(data):
+def insert_data_into_table_sds011(data):
     cursor.execute("INSERT INTO feinstaub.sds011 (PM10, PM25, zeitstempel) VALUES (%s, %s, %s)", data)
 
 
-def insertDataIntoTableDht22(data):
+def insert_data_into_table_dht22(data):
     cursor.execute("INSERT INTO feinstaub.dht22 (luftfeuchtigkeit, zeitstempel, temperatur) VALUES (%s, %s, %s)", data)
 
 
 # Open the CSV file and read the data
 
-def fileToTable(file, type_of_table):
+def file_to_table(file, type_of_table):
     with open(file, 'r') as csvfile:
         csv_reader = csv.reader(csvfile, delimiter=';')
         next(csv_reader)  # Skip the header row if it exists
         for row in csv_reader:
 
             # Assuming the CSV columns are in the order PM10, PM25, and zeitstempel
-            sensor_id, sensor_type, location, lat, lon, timestamp, P1, durP1, ratioP1, P2, durP2, ratioP2 = row
-            data = (P1, P2, timestamp)
+            sensor_id, sensor_type, location, lat, lon, timestamp, p1, dur_p1, ratio_p1, p2, dur_p2, ratio_p2 = row
+            data = (p1, p2, timestamp)
             if type_of_table == "DHT22":
-                insertDataIntoTableDht22(data)
+                insert_data_into_table_dht22(data)
             elif type_of_table == "SDS011":
-                insertDataIntoTableSds011(data)
+                insert_data_into_table_sds011(data)
             else:
                 print("Unknown")
 
 
-def fileCatcher():
+def file_catcher():
     type_of_table = "sds011"
     sensor_id_outside = 3659
     csv_folder_sds = f"{CSV_Downloader.download_files(type_of_table, sensor_id_outside)}"
@@ -55,13 +55,13 @@ def fileCatcher():
     for filename in os.listdir(csv_folder_sds):
         if filename.endswith('.csv'):
             full_path = os.path.join(csv_folder_sds, filename)
-            fileToTable(full_path, "SDS011")
+            file_to_table(full_path, "SDS011")
     for filename in os.listdir(csv_folder_dht):
         if filename.endswith('.csv'):
             full_path = os.path.join(csv_folder_dht, filename)
-            fileToTable(full_path, "DHT22")
+            file_to_table(full_path, "DHT22")
 
 
-fileCatcher()
+file_catcher()
 cnx.commit()  # Commit the transaction
 cnx.close()
