@@ -15,10 +15,10 @@ config = {
 cnx = mysql.connector.connect(**config)
 cursor = cnx.cursor()
 
-
 # Function to insert data into the table
 def insert_data_into_table_sds011(data):
     cursor.execute("INSERT INTO feinstaub.sds011 (PM10, PM25, zeitstempel) VALUES (%s, %s, %s)", data)
+
 
 
 def insert_data_into_table_dht22(data):
@@ -66,4 +66,5 @@ def file_catcher():
 
 file_catcher()
 cnx.commit()  # Commit the transaction
+
 cnx.close()
