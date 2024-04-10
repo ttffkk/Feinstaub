@@ -1,10 +1,11 @@
 import csv
 import os
 import mysql.connector
+from mysql.connector import cursor
 
 config = {
-    'user': 'Azad',
-    'password': 'Azad2005',
+    'user': 'root',
+    'password': 'azad2005',
     'host': '127.0.0.1',  # Remove the port number from the host
     'database': 'feinstaub',
     'raise_on_warnings': True
@@ -17,7 +18,7 @@ cnx = mysql.connector.connect(**config)
 # Function to insert data into the table
 def insertDataIntoTable(data):
     cursor = cnx.cursor()
-    cursor.execute("INSERT INTO SDS011 (PM10, PM25, zeitstempel) VALUES (%s, %s, %s)", data)
+    cursor.execute("INSERT INTO feinstaub.sds011 (PM10, PM25, zeitstempel) VALUES (%s, %s, %s)", data)
     cnx.commit()
     cursor.close()
 
@@ -50,8 +51,25 @@ def fileToTable(file):
         insertDataIntoTable(data)
 
     # Close the database connection
+def selectFromDate():
+    datum = input("Geben sie das Datum (Format: JJJJ-MM-TT) ein: ")
 
+    sql = "SELECT * FROM feinstaub.sds011 WHERE zeitstempel =" + datum
+    cursor.execute(sql, (datum,))
 
+    ergebnisse = cursor.fetchall()
+    if ergebnisse:
+        print("Ergebnisse für das Datum: " + datum)
+        for datensatz in ergebnisse:
+            print(datensatz)
+    else:
+        print("Keine Ergebnisse für das angegebene Datum gefunden.")
+
+ selectFromDate()
 fileCatcher()
 cnx.close()
 # Close the database connection
+
+
+
+
