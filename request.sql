@@ -3,4 +3,4 @@ SELECT
   MAX(temperatur) AS max_temperatur,
   AVG(temperatur) AS durchschnittliche_temperatur
 FROM feinstaub.DHT22
-WHERE zeitstempel = '2022-03-14';
+WHERE zeitstempel like '2022-03-14%';
