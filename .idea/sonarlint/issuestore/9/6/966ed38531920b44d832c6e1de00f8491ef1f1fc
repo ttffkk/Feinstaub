@@ -1,0 +1,10 @@
+
+wpython:S1481*"4Replace the unused local variable "dur_p1" with "_".(Ç­ÛƒùÿÿÿÿJ$9d3e8b42-2ac5-48e7-bc46-423a4de483b0
+ypython:S1481*"6Replace the unused local variable "ratio_p2" with "_".(Ç­ÛƒùÿÿÿÿJ$a046a86a-7fbd-4c1a-887e-e0a441b2fdb1
+wpython:S1481*"4Replace the unused local variable "dur_p2" with "_".(Ç­ÛƒùÿÿÿÿJ$91620185-fbbd-4c14-aa62-df3c3bab61df
+zpython:S1481&"7Replace the unused local variable "sensor_id" with "_".(ã õÄûÿÿÿÿJ$e71d4218-2ea1-445c-82a7-bc7571cf0a5e
+ypython:S1481&"6Replace the unused local variable "location" with "_".(ã õÄûÿÿÿÿJ$a604f224-5f92-4b61-8bd8-7817aae02508
+tpython:S1481&"1Replace the unused local variable "lon" with "_".(ã õÄûÿÿÿÿJ$2a9e0ba5-4b07-4f3e-a87e-4200dfd99877
+tpython:S1481&"1Replace the unused local variable "lat" with "_".(ã õÄûÿÿÿÿJ$4821d677-6aa2-432d-acd8-05ea24e53799
+|python:S1481&"9Replace the unused local variable "sensor_type" with "_".(ã õÄûÿÿÿÿJ$0511f67a-ed39-4368-adbd-24a523b8e7c0
+ypython:S1481*"6Replace the unused local variable "ratio_p1" with "_".(Ç­ÛƒùÿÿÿÿJ$e48bfda6-df72-48a5-be0f-0999cb73dadf
